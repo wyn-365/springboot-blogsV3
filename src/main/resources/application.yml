@@ -1,0 +1,22 @@
+spring:
+  thymeleaf:
+    mode: HTML
+    cache: false
+  datasource:
+    driver-calss-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blogs?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    #show-sql: true
+#配置评论的统一头像
+comment.avatar: /images/avatar.png
+server:
+  port: 80
+
+#配置文件的mybatis的配置设置，注解方式可以不用
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

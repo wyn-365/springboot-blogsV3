@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.springboot.mapper.CommentMapper">
+    <!-- -->
+    <!-- 一对多 级联查询的第一种方法（嵌套查询） -->
+    <resultMap type="com.wang.springboot.pojo.Comment" id="userAndOrders1">
+        <id property="content" column="content"/>
+        <result property="email" column="email"/>
+        <result property="nickname" column="nickname"/>
+        <result property="createTime" column="create_time"/>
+        <collection property="blog" ofType="com.wang.springboot.pojo.Blog">
+            <result column="title" property="title"/>
+        </collection>
+    </resultMap>
+    <select id="findAll" resultMap="userAndOrders1">
+        SELECT a.content,a.email,a.nickname,a.create_time,b.title from t_comment a,t_blog b WHERE a.blog_id=b.id ORDER
+        BY a.create_time DESC LIMIT 30
+    </select>
+
+</mapper>

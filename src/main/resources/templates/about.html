@@ -1,0 +1,139 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>关于我单页</title>
+    <meta name="keywords" content="blog"/>
+    <meta name="description" content="blog"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/base.css}" rel="stylesheet">
+    <link th:href="@{/css/m.css}" rel="stylesheet">
+    <script th:src="@{js/jquery-1.8.3.min.js}"></script>
+    <script th:src="@{js/comm.js}"></script>
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/modernizr.js}"></script>
+    <![endif]-->
+</head>
+<body>
+<!--top begin-->
+<header id="header">
+    <div class="navbox">
+        <h2 id="mnavh"><span class="navicon"></span></h2>
+        <div class="logo"><a href="#">王一宁个人博客</a></div>
+        <nav>
+            <ul id="starlist">
+                <li><a th:href="@{/}">首页</a></li>
+
+                <li class="menu"><a href="#">博客分类</a>
+                    <ul class="sub">
+                        <li th:each="type : ${types}"><a th:href="@{'/types?id='+${type.id}}"
+                                                         th:text="${type.name}+'('+${#arrays.length(type.blogs)}+')'">推荐工具</a>
+                        </li>
+
+                    </ul>
+                    <span></span></li>
+
+                <li><a th:href="@{/archives}">个人博客时间轴</a></li>
+                <li><a th:href="@{/about}">关于我</a></li>
+            </ul>
+        </nav>
+        <div class="searchico"></div>
+    </div>
+</header>
+<div class="searchbox">
+    <div class="search">
+        <form th:action="@{/search}" method="post" name="searchform" id="searchform">
+            <input name="query" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);"
+                   onFocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
+                   onBlur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+            <input name="show" value="title" type="hidden">
+            <input name="tempid" value="1" type="hidden">
+            <input name="tbname" value="news" type="hidden">
+            <input name="query2" class="input_submit" value="搜索" type="submit">
+        </form>
+    </div>
+    <div class="searchclose"></div>
+</div>
+<!--top end-->
+
+<article>
+    <div class="whitebg about">
+    <div class="ab_box"><i class="avatar_pic"><img th:src="@{/images/avatarr.jpg}"></i>
+        <h3>王一宁</h3>
+        <p>一个90后草根男站长！程序猿一枚。</p>
+        <p>现华北电力大学计算机系研究生。</p>
+    </div>
+    <h2 class="gd_title">个人简介</h2><br>
+    <p class="ab_dubai">姓名：</p><span>王一宁</span>  <p style="padding-left: 150px" class="ab_dubai">性别：</p><span>男</span> </br>
+    <p class="ab_dubai">年龄：</p><span>24</span>    <p style="padding-left: 178px" class="ab_dubai">政治面貌：</p><span>党员</span> </br>
+    <p class="ab_dubai">籍贯：</p><span>河北省廊坊市</span>  <p style="padding-left: 108px" class="ab_dubai">英语：</p><span>CET-6</span> </br>
+    <p class="ab_dubai">电话：</p><span>1833360384X</span>  <p style="padding-left: 100px" class="ab_dubai">邮箱：</p><span>wyn_365@qq.com</span>
+
+    </br>
+
+    <h2 class="gd_title">IT技能</h2><br>
+    <div th:each="about,aboutListStat : ${aboutList}">
+        <p style="letter-spacing: 2px;" class="ab_dubai" th:text="${aboutListStat.count}+'.'+${about.about}">
+            1.掌握Java基础:集合、反射、多线程、锁、阻塞队列等，深入理解OOP与AOP编程思想。</p><br>
+    </div>
+
+    <h2 class="gd_title">教育经历</h2><br>
+    <p class="ab_dubai">毕业学校二：</p><span>华北电力大学</span> <p style="padding-left: 153px" class="ab_dubai">毕业学校一：</p><span>河北北方学院</span><br>
+    <p class="ab_dubai">时间：</p><span>2019年9月至2022年6月</span><p style="padding-left: 130px" class="ab_dubai">时间：</p><span>2015年9月至2019年6月</span><br>
+    <p class="ab_dubai">专业：</p><span>软件工程</span> <p style="padding-left: 230px" class="ab_dubai">专业：</p><span>信息工程</span><br>
+    <p class="ab_dubai">学历：</p><span>硕士</span> <p style="padding-left: 260px" class="ab_dubai">学历：</p><span>本科</span><br>
+
+
+
+
+    <h2 class="gd_title">项目经历</h2><br>
+    <div style="float: left;width:100%;">
+    <ul class="xinlu">
+        <li th:each="project,projectListStat : ${projectList}">
+            <a th:href="@{/getProjectById/{id}(id=${project.id})}" target="_blank"><i><img th:src="${project.img}"></i>
+            <p th:text="${projectListStat.count}+'.'+${project.title}">我是怎么评价自己的？</p>
+            <span>请点击查看具体信息...</span></a>
+        </li>
+    </ul>
+    </div>
+    <br>
+
+    <div style="float: left;width:100%;">
+    <h2 class="gd_title">荣誉证书</h2><br>
+    <p class="ab_dubai"><b>阿里云：</b> 云计算工程师ACP证书、大数据工程师ACP证书、互联网架构ACP证书，以及ACA认证证书，java编码规范等等</p><br>
+    <p class="ab_dubai"><b>华为云：</b> HCIA，java编码规范</p><br>
+    <p class="ab_dubai"><b>腾讯云：</b> TCA证书</p><br>
+    <p class="ab_dubai"><b>RedHat：</b> RHCSA</p><br>
+
+    <h2 class="gd_title">个人评价</h2><br>
+    <p class="ab_dubai">为人乐观、踏实。极具耐心，有很好的抗压能力。有较强的学习能力、勇于接受新事物、新技术、新挑战。协作能力强、有强烈的责任意识和集体荣誉感。</p><br>
+    </div>
+    </div>
+</article>
+
+
+<footer>
+    <div class="box">
+
+        <div class="wxbox">
+            <ul>
+                <li><img th:src="@{/images/wxgzh.png}"><span>微信公众号</span></li>
+                <li><img th:src="@{/images/wx.png}"><span>我的微信</span></li>
+            </ul>
+        </div>
+
+        <div class="endnav">
+            <p><b>关于我们</b></p>
+            <p>我若盛开，清风爱来不来！</p>
+            <p>本站为笔者19年升级后的第三版，以从SSM升级至Springboot一站式应用，源码已开源到GitHub。</p>
+
+            <p>&copy; 2020 <a href="http://www.wyn-365.club">www.wyn-365.club</a>&nbsp;&nbsp;邮箱：wyn_365@qq.com&nbsp;&nbsp;技术支持：<a href="#" title="springboot"
+                                                                                                                                  target="_blank">springboot</a></p>
+            <p>ICP备案号：<a href="http://www.beian.miit.gov.cn/">冀ICP备20016058号</a></p>
+        </div>
+    </div>
+    <a href="#">
+        <div class="top"></div>
+    </a></footer>
+</body>
+</html>
